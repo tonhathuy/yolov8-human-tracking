@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+            socket.on('connect', function () {
+                socket.emit('my event', {data: 'I\'m connected!'});
+            });
+            var tracking = [];
+            socket.on('my_response', function(msg, cb) {
+                // console.log(msg.data);
+                tracking = msg.data;
+                // msg is a list id tracking , create a form input submit to tracking
+                var html = '';
+                for (var i = 0; i < msg.data.length; i++) {
+                    html += '<form action="#" method="post"><input type="submit" value="' + msg.data[i] + ' "></form>';
+                }
+                $('#receive').html(html);
+                if (cb)
+                    cb();
+            });
+            socket.on('test_response', function(msg, cb) {
+                console.log(msg.id_selected);
+                $('#tracking').html( '<h2>Tracking: ' + msg.id_selected + '</h2>');
+            });
+            $(document).on('submit', 'form', function(event) {
+                event.preventDefault();
+                var id = $(this).find('input[type="submit"]').val();
+                socket.emit('tracking', {data: id});
+            });
+        });
+
+    </script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Demo Human Tracking</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-16  offset-lg-2">
+            <h3 class="mt-5">Demo Human Tracking</h3>
+            <img src="{{ url_for('video_feed') }}" width="100%">
+            <!-- add dropdown select ID to tracking -->
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Select ID to tracking</label>
+                <h2>Receive:</h2>
+                <div id="receive"></div>
+                <div id="tracking"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
