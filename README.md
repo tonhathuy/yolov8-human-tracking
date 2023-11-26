@@ -6,7 +6,7 @@ docker run -it --name yolov8 --privileged --ipc=host --net=host --gpus all -v $(
 ```
 ## 2. Install necessary packages ( in docker container ) 
 ```
-RUN pip install --no-cache flask==3.0.0 flask_socketio==5.3.6 pynput==1.7.6
+pip install --no-cache flask==3.0.0 flask_socketio==5.3.6 pynput==1.7.6
 ```
 ## 3. Convert pytorch model to tensorRT 
 ```
@@ -25,6 +25,7 @@ Config:
 
 Run: 
 ```
+cd /research
 python app.py 
 ```
 Now access the address `http://127.0.0.1:8001/` to see the results. 
