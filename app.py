@@ -27,7 +27,7 @@ TRACKING_ON = 3 # turn on tracking with id_selected of the box is green and the 
 
 model = YOLO(MODEL_PATH)
 # mode.track a dummy frame to load the model
-model.track(np.zeros((640, 480, 3), dtype=np.uint8), persist=True, classes=0, tracker="bytetrack.yaml", verbose=False)
+model.track(np.zeros((640, 480, 3), dtype=np.uint8), persist=True, classes=0, tracker="botsort.yaml", verbose=False)
 camera = cv2.VideoCapture(CAMERA_SOURCE) 
 
 # Variables for tracking
