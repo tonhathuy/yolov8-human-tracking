@@ -2,6 +2,7 @@
 
 ## 1. Pull and run yolo docker: 
 ```
+docker pull ultralytics/ultralytics:8.0.229-jetson
 docker run -it --name yolov8 --privileged --ipc=host --net=host --gpus all -v $(pwd):/research --gpus all ultralytics/ultralytics:8.0.229-jetson
 ```
 ## 2. Install necessary packages ( in docker container ) 
