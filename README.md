@@ -2,7 +2,7 @@
 
 ## 1. Pull and run yolo docker: 
 ```
-docker run -it --name yolov8 --privileged --ipc=host --net=host --gpus all -v $(pwd):/research --gpus all ultralytics/ultralytics:latest
+docker run -it --name yolov8 --privileged --ipc=host --net=host --gpus all -v $(pwd):/research --gpus all ultralytics/ultralytics:8.0.229-jetson
 ```
 ## 2. Install necessary packages ( in docker container ) 
 ```
@@ -19,9 +19,9 @@ Note:
 
 ## 4. Run app.py 
 
-Config: 
-- `MODEL_PATH` = '/research/model/yolov8n.engine'
-- `CAMERA_SOURCE` = "/research/IMG_4740.MOV"  # use 0 for web camera
+Config ( in app.py code ):
+- `MODEL_PATH` = '/research/model/yolov8n_FP16_simp.engine'
+- `CAMERA_SOURCE` = "/research/people.mp4"  
 
 Run: 
 ```

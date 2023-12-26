@@ -19,7 +19,7 @@ thread = None
 thread_lock = Lock()
 
 MODEL_PATH = '/research/model/yolov8n_FP16_simp.engine'
-CAMERA_SOURCE = "/research/IMG_4740.MOV"  # use 0 for web camera
+CAMERA_SOURCE = "/research/people.mp4"  # use 0 for web camera
 
 NORMAL = 1 # turn off human detection 
 TRACKING_OFF = 2 # turn on tracking with id_selected of the box is yellow and the others  is red , enable keyboard listener to select the id_selected
