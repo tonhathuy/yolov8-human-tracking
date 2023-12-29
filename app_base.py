@@ -2,26 +2,8 @@ from threading import Lock
 from collections import defaultdict
 import numpy as np
 import time
-
-# if flask_socketio , flask is not installed with pip install flask-socketio
-if 'flask_socketio' in globals():
-    print('flask_socketio is installed')
-else:
-    print('flask_socketio is not installed')
-    print('installing flask_socketio')
-    import subprocess
-    subprocess.check_call(["python", '-m', 'pip', 'install', 'flask-socketio'])
-    from flask_socketio import SocketIO, emit
-
-if 'flask' in globals():
-    print('flask is installed')
-else:
-    print('flask is not installed')
-    print('installing flask')
-    import subprocess
-    subprocess.check_call(["python", '-m', 'pip', 'install', 'flask'])
-    from flask import Flask, render_template, Response, session
-
+from flask_socketio import SocketIO, emit
+from flask import Flask, render_template, Response, session
 
 import cv2
 from ultralytics import YOLO
@@ -39,6 +21,8 @@ thread = None
 thread_lock = Lock()
 
 model = YOLO(MODEL_PATH)
+# mode.track a dummy frame to load the model
+model.track(np.zeros((640, 480, 3), dtype=np.uint8), persist=True, classes=0, tracker="botsort.yaml", verbose=False)
 camera = cv2.VideoCapture(CAMERA_SOURCE)  # use 0 for web camera
 fps = 0.0
 #  rtsp://username:password@ip_address:554/user=username_password='password'_channel=channel_number_stream=0.sdp'
