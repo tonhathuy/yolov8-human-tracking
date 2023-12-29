@@ -22,7 +22,7 @@ thread_lock = Lock()
 
 model = YOLO(MODEL_PATH)
 # mode.track a dummy frame to load the model
-model.track(np.zeros((640, 480, 3), dtype=np.uint8), persist=True, classes=0, tracker="botsort.yaml", verbose=False)
+model.track(np.zeros((640, 480, 3), dtype=np.uint8))
 camera = cv2.VideoCapture(CAMERA_SOURCE)  # use 0 for web camera
 fps = 0.0
 #  rtsp://username:password@ip_address:554/user=username_password='password'_channel=channel_number_stream=0.sdp'
